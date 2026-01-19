@@ -55,10 +55,11 @@
 
         /* Glassmorphism Utilities */
         .glass {
-            background: rgba(37, 37, 37, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(37, 37, 37, 0.85); /* Sedikit lebih gelap agar teks terbaca di floating */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Text Gradient */
@@ -76,17 +77,45 @@
             border-color: #D4AF37;
             box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.1);
         }
+
+        /* Hamburger Line Transition Styles */
+        .hamburger-line {
+            transition: all 0.4s ease-in-out;
+            transform-origin: center;
+        }
+        
+        /* Menu Open State Classes */
+        .menu-open .line-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .menu-open .line-2 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Scroll To Top Button */
+        #scrollToTopBtn {
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        #scrollToTopBtn.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="bg-premium text-white font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-premium">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors">
+    <!-- Navbar Floating & Responsive -->
+    <!-- Updated: Floating layout, rounded-2xl, smoother mobile menu -->
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-7xl z-50 transition-all duration-300 glass rounded-2xl" id="navbar">
+        <div class="px-6 py-4 flex justify-between items-center relative">
+            <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors z-50">
                 JAKY<span class="text-accent">SOFT</span>.
             </a>
             
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
                 <a href="#home" class="text-gray-300 hover:text-accent transition-colors">Beranda</a>
                 <a href="#about" class="text-gray-300 hover:text-accent transition-colors">Tentang</a>
@@ -95,25 +124,27 @@
                 <a href="#contact" class="px-5 py-2 border border-accent text-accent rounded-full hover:bg-accent hover:text-premium transition-all duration-300">Hubungi Saya</a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-2xl text-accent" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <i class="fas fa-bars"></i>
+            <!-- Mobile Menu Button (2 Lines Icon) -->
+            <button id="menu-btn" class="md:hidden z-50 focus:outline-none block w-8 h-8 relative flex flex-col justify-center items-center gap-[10px]">
+                <span class="hamburger-line line-1 block w-6 h-0.5 bg-accent"></span>
+                <span class="hamburger-line line-2 block w-6 h-0.5 bg-accent"></span>
             </button>
         </div>
         
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-premiumLight border-t border-gray-800 absolute w-full">
-            <div class="flex flex-col p-6 space-y-4">
-                <a href="#home" class="block text-gray-300 hover:text-accent">Beranda</a>
-                <a href="#about" class="block text-gray-300 hover:text-accent">Tentang</a>
-                <a href="#portfolio" class="block text-gray-300 hover:text-accent">Karya</a>
-                <a href="#contact" class="block text-accent font-bold">Hubungi Saya</a>
+        <!-- Mobile Menu Dropdown (Smooth Transition) -->
+        <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out border-t border-gray-800 border-opacity-0">
+            <div class="flex flex-col p-6 space-y-6 text-center">
+                <a href="#home" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">Beranda</a>
+                <a href="#about" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">Tentang</a>
+                <a href="#skills" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">Keahlian</a>
+                <a href="#portfolio" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">Karya</a>
+                <a href="#contact" class="inline-block text-accent font-bold border border-accent rounded-full py-2 px-6 hover:bg-accent hover:text-premium transition-all nav-link-mobile">Hubungi Saya</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-32 pb-20"> <!-- Added pt-32 because of floating nav -->
         <!-- Background Elements -->
         <div class="absolute top-20 right-0 w-96 h-96 bg-accent opacity-5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 left-0 w-72 h-72 bg-white opacity-5 rounded-full blur-3xl"></div>
@@ -128,11 +159,11 @@
                 <p class="text-textGray text-lg mb-8 max-w-lg leading-relaxed">
                     Saya Jaky. Menggabungkan logika pemrograman yang kompleks dengan estetika desain minimalis untuk membangun solusi web yang tidak hanya berfungsi, tapi memukau.
                 </p>
-                <div class="flex gap-4">
-                    <a href="#portfolio" class="px-8 py-3 bg-accent text-premium font-bold rounded hover:bg-white transition-all duration-300 shadow-lg shadow-accent/20">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#portfolio" class="px-8 py-3 bg-accent text-premium font-bold rounded hover:bg-white transition-all duration-300 shadow-lg shadow-accent/20 text-center">
                         Lihat Portfolio
                     </a>
-                    <a href="#contact" class="px-8 py-3 border border-gray-700 rounded text-white hover:border-accent hover:text-accent transition-all duration-300">
+                    <a href="#contact" class="px-8 py-3 border border-gray-700 rounded text-white hover:border-accent hover:text-accent transition-all duration-300 text-center">
                         Unduh CV
                     </a>
                 </div>
@@ -181,13 +212,13 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="glass p-6 rounded-xl hover:bg-gray-800 transition-colors">
                         <i class="fas fa-layer-group text-accent text-3xl mb-4"></i>
                         <h4 class="text-xl font-bold mb-2">Full Stack</h4>
                         <p class="text-textGray text-sm">Integrasi seamless antara Frontend & Backend.</p>
                     </div>
-                    <div class="glass p-6 rounded-xl hover:bg-gray-800 transition-colors mt-8">
+                    <div class="glass p-6 rounded-xl hover:bg-gray-800 transition-colors mt-0 sm:mt-8">
                         <i class="fas fa-paint-brush text-accent text-3xl mb-4"></i>
                         <h4 class="text-xl font-bold mb-2">UI/UX Design</h4>
                         <p class="text-textGray text-sm">Desain visual yang memanjakan mata pengguna.</p>
@@ -197,7 +228,7 @@
                         <h4 class="text-xl font-bold mb-2">Performance</h4>
                         <p class="text-textGray text-sm">Optimasi kecepatan kode yang maksimal.</p>
                     </div>
-                    <div class="glass p-6 rounded-xl hover:bg-gray-800 transition-colors mt-8">
+                    <div class="glass p-6 rounded-xl hover:bg-gray-800 transition-colors mt-0 sm:mt-8">
                         <i class="fas fa-mobile-alt text-accent text-3xl mb-4"></i>
                         <h4 class="text-xl font-bold mb-2">Mobile First</h4>
                         <p class="text-textGray text-sm">Responsif di segala ukuran layar gawai.</p>
@@ -320,6 +351,10 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                <a href="#" class="inline-block text-sm border-b border-accent pb-1 hover:text-accent transition-colors">Lihat Semua di GitHub</a>
+            </div>
         </div>
     </section>
 
@@ -348,26 +383,85 @@
         </div>
     </section>
 
+    <!-- Scroll To Top Button -->
+    <button id="scrollToTopBtn" class="fixed bottom-8 right-8 z-40 bg-accent text-premium w-12 h-12 rounded-lg flex items-center justify-center shadow-lg hover:bg-white transition-colors transform hover:-translate-y-1">
+        <i class="fas fa-arrow-up font-bold"></i>
+    </button>
+
     <!-- AOS Script Initialization -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Updated AOS Configuration
         AOS.init({
-            once: true, // Animation happens only once while scrolling down
-            offset: 100, // Offset (in px) from the original trigger point
-            duration: 800, // Duration of animation
-            easing: 'ease-out-cubic', // Easing function
+            once: false, // Updated: Elements animate every time they appear
+            mirror: true, // Updated: Elements animate out when scrolling past them
+            offset: 100, 
+            duration: 800,
+            easing: 'ease-out-cubic',
         });
 
-        // Navbar Scroll Effect
+        // Mobile Menu Logic (Improved Smoothness & 2-Line Icon)
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('.nav-link-mobile');
+
+        function toggleMenu() {
+            menuBtn.classList.toggle('menu-open');
+            
+            if (mobileMenu.style.maxHeight) {
+                // Close menu
+                mobileMenu.style.maxHeight = null;
+                mobileMenu.classList.remove('opacity-100', 'border-opacity-100', 'mt-4');
+                mobileMenu.classList.add('opacity-0', 'border-opacity-0');
+            } else {
+                // Open menu
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                mobileMenu.classList.remove('opacity-0', 'border-opacity-0');
+                mobileMenu.classList.add('opacity-100', 'border-opacity-100', 'mt-4');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (menuBtn.classList.contains('menu-open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Navbar Scroll Effect (Updated for Floating Style)
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-                navbar.classList.replace('py-4', 'py-2');
+                // Add more glass effect or shadow when scrolled
+                navbar.classList.add('shadow-2xl');
+                navbar.classList.replace('bg-opacity-85', 'bg-opacity-95'); // Make it slightly more opaque
             } else {
-                navbar.classList.remove('shadow-lg');
-                navbar.classList.replace('py-2', 'py-4');
+                navbar.classList.remove('shadow-2xl');
             }
+        });
+
+        // Scroll To Top Logic
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollToTopBtn.classList.add('show');
+                scrollToTopBtn.classList.remove('translate-y-10');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+                scrollToTopBtn.classList.add('translate-y-10');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
