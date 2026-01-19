@@ -11,7 +11,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&family=Space+Grotesk:wght@500;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -23,11 +23,11 @@
                         premium: '#191919',
                         premiumLight: '#202020',
                         accent: '#D4AF37', 
-                        accentDark: '#B5952F',
                         textGray: '#A1A1AA'
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
                         mono: ['"Ubuntu Mono"', 'monospace'],
                     }
                 }
@@ -44,11 +44,8 @@
 
         body {
             background-color: #191919;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-attachment: fixed;
+            background-image: linear-gradient(#262626 1px, transparent 1px), linear-gradient(90deg, #262626 1px, transparent 1px);
+            background-size: 32px 32px;
         }
 
         ::-webkit-scrollbar {
@@ -66,11 +63,17 @@
         }
 
         .glass {
-            background: rgba(25, 25, 25, 0.9);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(25, 25, 25, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        @supports (backdrop-filter: blur(10px)) {
+            .glass {
+                background: rgba(25, 25, 25, 0.85);
+                backdrop-filter: blur(8px); 
+                -webkit-backdrop-filter: blur(8px);
+            }
         }
 
         .text-gradient {
@@ -80,16 +83,17 @@
         }
         
         .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            will-change: transform; 
         }
         .card-hover:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             border-color: #D4AF37;
-            box-shadow: 4px 4px 0px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
         .hamburger-line {
-            transition: all 0.4s ease-in-out;
+            transition: all 0.3s ease-in-out;
             transform-origin: center;
         }
         
@@ -116,30 +120,28 @@
             display: inline-block;
             transition: color 0.3s ease;
         }
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -2px;
-            left: 0;
-            background-color: #D4AF37;
-            transition: width 0.3s ease;
+        .footer-link:hover {
+            color: #D4AF37;
         }
-        .footer-link:hover::after {
-            width: 100%;
-        }
+
+        .tech-icon-react { color: #61DAFB; }
+        .tech-icon-vue { color: #4FC08D; }
+        .tech-icon-laravel { color: #FF2D20; }
+        .tech-icon-node { color: #68A063; }
+        .tech-icon-js { color: #F7DF1E; }
+        .tech-icon-html { color: #E34F26; }
+        .tech-icon-firebase { color: #FFCA28; }
     </style>
 </head>
-<body class="bg-premium text-white font-mono antialiased overflow-x-hidden w-full selection:bg-accent selection:text-premium">
+<body class="bg-premium text-white font-sans antialiased overflow-x-hidden w-full selection:bg-accent selection:text-premium">
 
     <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-7xl z-50 transition-all duration-300 glass rounded-lg" id="navbar">
         <div class="px-6 py-4 flex justify-between items-center relative">
-            <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors z-50 font-sans">
-                JAKY<span class="text-accent">SOFT</span>.
+            <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors z-50 font-display">
+                Jaky<span class="text-accent">.dev</span>
             </a>
             
-            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-wide">
+            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-wide font-mono">
                 <a href="#home" class="text-gray-300 hover:text-accent transition-colors">01. Beranda</a>
                 <a href="#about" class="text-gray-300 hover:text-accent transition-colors">02. Tentang</a>
                 <a href="#skills" class="text-gray-300 hover:text-accent transition-colors">03. Keahlian</a>
@@ -154,7 +156,7 @@
         </div>
         
         <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out border-t border-gray-800 border-opacity-0">
-            <div class="flex flex-col p-6 space-y-6 text-center">
+            <div class="flex flex-col p-6 space-y-6 text-center font-mono">
                 <a href="#home" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">01. Beranda</a>
                 <a href="#about" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">02. Tentang</a>
                 <a href="#skills" class="block text-lg text-gray-300 hover:text-accent nav-link-mobile">03. Keahlian</a>
@@ -165,25 +167,20 @@
     </nav>
 
     <section id="home" class="min-h-screen flex items-center justify-center relative pt-32 pb-20 overflow-hidden w-full">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-20 right-0 w-64 md:w-96 h-64 md:h-96 bg-accent opacity-5 rounded-full blur-3xl animate-pulse transform translate-x-1/2 md:translate-x-0"></div>
-            <div class="absolute bottom-20 left-0 w-48 md:w-72 h-48 md:h-72 bg-white opacity-5 rounded-full blur-3xl transform -translate-x-1/2 md:translate-x-0"></div>
-        </div>
-
         <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div data-aos="fade-right" data-aos-duration="1000" class="w-full">
-                <div class="flex items-center gap-2 mb-4">
+            <div data-aos="fade-right" data-aos-duration="800" class="w-full">
+                <div class="flex items-center gap-2 mb-4 font-mono">
                     <span class="text-accent text-lg"> > </span>
                     <h2 class="text-accent font-bold tracking-widest text-xs md:text-sm uppercase">Senior Full Stack Developer</h2>
                 </div>
-                <h1 class="text-4xl md:text-5xl lg:text-7xl font-sans font-extrabold leading-tight mb-6">
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-display font-bold leading-tight mb-6">
                     Menciptakan <br>
                     <span class="text-gradient">Digital Logic.</span>
                 </h1>
-                <p class="text-textGray text-base md:text-lg mb-8 max-w-lg leading-relaxed">
-                    <span class="text-accent">//</span> Saya Jaky. Menggabungkan kode yang kompleks dengan estetika minimalis untuk solusi web yang presisi.
+                <p class="text-textGray text-base md:text-lg mb-8 max-w-lg leading-relaxed font-sans">
+                    <span class="text-accent font-mono">//</span> Saya Jaky. Menggabungkan kode yang kompleks dengan estetika minimalis untuk solusi web yang presisi.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-4 font-mono">
                     <a href="#portfolio" class="px-8 py-3 bg-accent text-premium font-bold rounded hover:bg-white transition-all duration-300 shadow-lg shadow-accent/20 text-center text-sm md:text-base border border-accent">
                         Lihat Portfolio
                     </a>
@@ -199,9 +196,9 @@
                 </div>
             </div>
             
-            <div class="relative w-full" data-aos="fade-left" data-aos-duration="1200">
+            <div class="relative w-full" data-aos="fade-left" data-aos-duration="1000">
                 <div class="relative z-10 w-full aspect-square max-w-sm md:max-w-md mx-auto rounded-lg overflow-hidden border border-gray-700 group bg-premium">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jaky Profile" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 opacity-80 group-hover:opacity-100">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Jaky Profile" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100">
                     <div class="absolute inset-0 bg-gradient-to-t from-premium via-transparent to-transparent opacity-80"></div>
                 </div>
                 <div class="absolute -z-10 top-4 -right-4 w-full h-full border border-dashed border-gray-700 rounded-lg hidden md:block"></div>
@@ -213,22 +210,22 @@
         <div class="max-w-7xl mx-auto px-6 w-full">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div data-aos="fade-up" class="w-full">
-                    <h2 class="text-3xl md:text-4xl font-sans font-bold mb-6">Di Balik <span class="text-accent">Console.log()</span></h2>
-                    <p class="text-textGray mb-6 leading-relaxed text-sm md:text-base">
-                        <span class="text-accent">></span> Dengan pengalaman 10+ tahun, saya berevolusi dari 'coder' menjadi arsitek digital. "Jakysoft" adalah standar kode bersih dan skalabilitas.
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">Di Balik <span class="text-accent">Console.log()</span></h2>
+                    <p class="text-textGray mb-6 leading-relaxed text-sm md:text-base font-sans">
+                        <span class="text-accent font-mono">></span> Dengan pengalaman 10+ tahun, saya berevolusi dari 'coder' menjadi arsitek digital. "Jakysoft" adalah standar kode bersih dan skalabilitas.
                     </p>
-                    <p class="text-textGray mb-8 leading-relaxed text-sm md:text-base">
-                        <span class="text-accent">></span> Filosofi: <em class="text-white">Kesederhanaan adalah kecanggihan tertinggi.</em> Spesialisasi dalam sistem web skala besar.
+                    <p class="text-textGray mb-8 leading-relaxed text-sm md:text-base font-sans">
+                        <span class="text-accent font-mono">></span> Filosofi: <em class="text-white">Kesederhanaan adalah kecanggihan tertinggi.</em> Spesialisasi dalam sistem web skala besar.
                     </p>
 
                     <div class="grid grid-cols-2 gap-8 mt-8 border-t border-gray-800 pt-8">
                         <div>
-                            <h3 class="text-3xl md:text-4xl font-sans font-bold text-white mb-2">10+</h3>
-                            <p class="text-xs md:text-sm text-textGray uppercase tracking-wider">Tahun Pengalaman</p>
+                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-2">10+</h3>
+                            <p class="text-xs md:text-sm text-textGray uppercase tracking-wider font-mono">Tahun Pengalaman</p>
                         </div>
                         <div>
-                            <h3 class="text-3xl md:text-4xl font-sans font-bold text-white mb-2">50+</h3>
-                            <p class="text-xs md:text-sm text-textGray uppercase tracking-wider">Proyek Selesai</p>
+                            <h3 class="text-3xl md:text-4xl font-display font-bold text-white mb-2">50+</h3>
+                            <p class="text-xs md:text-sm text-textGray uppercase tracking-wider font-mono">Proyek Selesai</p>
                         </div>
                     </div>
                 </div>
@@ -237,31 +234,31 @@
                     <div class="glass p-6 rounded hover:bg-gray-800 transition-colors border border-gray-800" data-aos="fade-up" data-aos-delay="0">
                         <div class="flex items-center gap-4 mb-3">
                             <i class="fas fa-layer-group text-accent text-2xl shrink-0"></i>
-                            <h4 class="text-lg font-bold m-0">Full Stack</h4>
+                            <h4 class="text-lg font-bold m-0 font-display">Full Stack</h4>
                         </div>
                         <p class="text-textGray text-sm">Integrasi seamless Frontend & Backend.</p>
                     </div>
                     
-                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors mt-0 sm:mt-8 border border-gray-800" data-aos="fade-up" data-aos-delay="150">
+                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors mt-0 sm:mt-8 border border-gray-800" data-aos="fade-up" data-aos-delay="100">
                         <div class="flex items-center gap-4 mb-3">
                             <i class="fas fa-paint-brush text-accent text-2xl shrink-0"></i>
-                            <h4 class="text-lg font-bold m-0">UI/UX Design</h4>
+                            <h4 class="text-lg font-bold m-0 font-display">UI/UX Design</h4>
                         </div>
                         <p class="text-textGray text-sm">Visual memukau & pengalaman intuitif.</p>
                     </div>
 
-                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors border border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors border border-gray-800" data-aos="fade-up" data-aos-delay="200">
                         <div class="flex items-center gap-4 mb-3">
                             <i class="fas fa-rocket text-accent text-2xl shrink-0"></i>
-                            <h4 class="text-lg font-bold m-0">Performance</h4>
+                            <h4 class="text-lg font-bold m-0 font-display">Performance</h4>
                         </div>
                         <p class="text-textGray text-sm">Optimasi kecepatan kode maksimal.</p>
                     </div>
 
-                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors mt-0 sm:mt-8 border border-gray-800" data-aos="fade-up" data-aos-delay="450">
+                    <div class="glass p-6 rounded hover:bg-gray-800 transition-colors mt-0 sm:mt-8 border border-gray-800" data-aos="fade-up" data-aos-delay="300">
                         <div class="flex items-center gap-4 mb-3">
                             <i class="fas fa-mobile-alt text-accent text-2xl shrink-0"></i>
-                            <h4 class="text-lg font-bold m-0">Mobile First</h4>
+                            <h4 class="text-lg font-bold m-0 font-display">Mobile First</h4>
                         </div>
                         <p class="text-textGray text-sm">Responsif di segala ukuran layar.</p>
                     </div>
@@ -273,34 +270,34 @@
     <section id="skills" class="py-24 w-full overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 w-full">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-accent tracking-widest text-sm uppercase">[ Stack Teknologi ]</span>
-                <h2 class="text-3xl md:text-4xl font-sans font-bold mt-2">Arsenalku</h2>
+                <span class="text-accent tracking-widest text-sm uppercase font-mono">[ Stack Teknologi ]</span>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mt-2">Arsenalku</h2>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 text-center">
                 <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                     <i class="fab fa-js text-4xl text-gray-500 group-hover:text-yellow-400 transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">JavaScript</h3>
+                    <h3 class="text-sm font-bold font-mono">JavaScript</h3>
+                </div>
+                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="150">
+                    <i class="fab fa-react text-4xl text-gray-500 group-hover:text-blue-400 transition-colors mb-3"></i>
+                    <h3 class="text-sm font-bold font-mono">React / Next</h3>
                 </div>
                 <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fab fa-react text-4xl text-gray-500 group-hover:text-blue-400 transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">React / Next</h3>
+                    <i class="fab fa-vuejs text-4xl text-gray-500 group-hover:text-green-500 transition-colors mb-3"></i>
+                    <h3 class="text-sm font-bold font-mono">Vue.js</h3>
+                </div>
+                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="250">
+                    <i class="fab fa-laravel text-4xl text-gray-500 group-hover:text-red-500 transition-colors mb-3"></i>
+                    <h3 class="text-sm font-bold font-mono">Laravel</h3>
                 </div>
                 <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fab fa-vuejs text-4xl text-gray-500 group-hover:text-green-500 transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">Vue.js</h3>
-                </div>
-                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fab fa-laravel text-4xl text-gray-500 group-hover:text-red-500 transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">Laravel</h3>
-                </div>
-                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
                     <i class="fab fa-python text-4xl text-gray-500 group-hover:text-blue-500 transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">Python</h3>
+                    <h3 class="text-sm font-bold font-mono">Python</h3>
                 </div>
-                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
+                <div class="group p-6 glass rounded hover:border-accent transition-all duration-300" data-aos="fade-up" data-aos-delay="350">
                     <i class="fas fa-database text-4xl text-gray-500 group-hover:text-accent transition-colors mb-3"></i>
-                    <h3 class="text-sm font-bold">SQL/NoSQL</h3>
+                    <h3 class="text-sm font-bold font-mono">SQL/NoSQL</h3>
                 </div>
             </div>
         </div>
@@ -310,13 +307,14 @@
         <div class="max-w-7xl mx-auto px-6 w-full">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
                 <div class="w-full md:w-auto">
-                    <span class="text-accent tracking-widest text-sm uppercase">[ Portfolio ]</span>
-                    <h2 class="text-3xl md:text-4xl font-sans font-bold mt-2">Proyek Terbaru</h2>
+                    <span class="text-accent tracking-widest text-sm uppercase font-mono">[ Portfolio ]</span>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mt-2">Proyek Terbaru</h2>
                 </div>
-                <a href="#" class="hidden md:inline-block text-sm border-b border-accent pb-1 hover:text-accent transition-colors mt-4 md:mt-0 font-bold">Lihat Semua di GitHub</a>
+                <a href="#" class="hidden md:inline-block text-sm border-b border-accent pb-1 hover:text-accent transition-colors mt-4 md:mt-0 font-bold font-mono">Lihat Semua di GitHub</a>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Proyek 1 -->
                 <div class="group relative overflow-hidden rounded bg-premium border border-gray-800 card-hover" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-48 overflow-hidden bg-gray-900 border-b border-gray-800">
                          <div class="w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
@@ -325,20 +323,22 @@
                     </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded">E-Commerce</span>
-                            <div class="flex gap-2 text-xs">
-                                <span>[React]</span>
-                                <span>[Node]</span>
+                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded font-mono">E-Commerce</span>
+                            <div class="flex gap-3 text-lg">
+                                <i class="fab fa-react tech-icon-react" title="React"></i>
+                                <i class="fab fa-node tech-icon-node" title="Node.js"></i>
+                                <i class="fas fa-database text-gray-400" title="Database"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">LuxeMarket API</h3>
-                        <p class="text-textGray text-sm mb-4">Platform e-commerce headless dengan arsitektur microservices.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors font-display">LuxeMarket API</h3>
+                        <p class="text-textGray text-sm mb-4 font-sans">Platform e-commerce headless dengan arsitektur microservices.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform font-mono">
                             Detail Proyek <i class="fas fa-arrow-right ml-2 text-xs"></i>
                         </a>
                     </div>
                 </div>
 
+                <!-- Proyek 2 -->
                 <div class="group relative overflow-hidden rounded bg-premium border border-gray-800 card-hover" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-48 overflow-hidden bg-gray-900 border-b border-gray-800">
                         <div class="w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
@@ -347,20 +347,22 @@
                    </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded">SaaS</span>
-                            <div class="flex gap-2 text-xs">
-                                <span>[Vue]</span>
-                                <span>[Laravel]</span>
+                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded font-mono">SaaS</span>
+                            <div class="flex gap-3 text-lg">
+                                <i class="fab fa-vuejs tech-icon-vue" title="Vue.js"></i>
+                                <i class="fab fa-laravel tech-icon-laravel" title="Laravel"></i>
+                                <i class="fab fa-docker text-blue-500" title="Docker"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Analytica Pro</h3>
-                        <p class="text-textGray text-sm mb-4">Dashboard analitik real-time untuk manajemen data perusahaan.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors font-display">Analytica Pro</h3>
+                        <p class="text-textGray text-sm mb-4 font-sans">Dashboard analitik real-time untuk manajemen data perusahaan.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform font-mono">
                             Detail Proyek <i class="fas fa-arrow-right ml-2 text-xs"></i>
                         </a>
                     </div>
                 </div>
 
+                <!-- Proyek 3 -->
                 <div class="group relative overflow-hidden rounded bg-premium border border-gray-800 card-hover" data-aos="fade-up" data-aos-delay="300">
                     <div class="h-48 overflow-hidden bg-gray-900 border-b border-gray-800">
                         <div class="w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
@@ -369,15 +371,15 @@
                    </div>
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded">Mobile</span>
-                            <div class="flex gap-2 text-xs">
-                                <span>[React]</span>
-                                <span>[Firebase]</span>
+                            <span class="text-xs font-bold text-accent uppercase tracking-wider border border-accent/30 px-2 py-1 rounded font-mono">Mobile</span>
+                            <div class="flex gap-3 text-lg">
+                                <i class="fab fa-react tech-icon-react" title="React Native"></i>
+                                <i class="fas fa-fire tech-icon-firebase" title="Firebase"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">JakyTask</h3>
-                        <p class="text-textGray text-sm mb-4">Aplikasi manajemen produktivitas cross-platform.</p>
-                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors font-display">JakyTask</h3>
+                        <p class="text-textGray text-sm mb-4 font-sans">Aplikasi manajemen produktivitas cross-platform.</p>
+                        <a href="#" class="inline-flex items-center text-sm font-bold hover:text-accent group-hover:translate-x-1 transition-transform font-mono">
                             Detail Proyek <i class="fas fa-arrow-right ml-2 text-xs"></i>
                         </a>
                     </div>
@@ -385,7 +387,7 @@
             </div>
             
             <div class="mt-8 text-center md:hidden">
-                <a href="#" class="inline-block text-sm border-b border-accent pb-1 hover:text-accent transition-colors">Lihat Semua di GitHub</a>
+                <a href="#" class="inline-block text-sm border-b border-accent pb-1 hover:text-accent transition-colors font-mono">Lihat Semua di GitHub</a>
             </div>
         </div>
     </section>
@@ -393,11 +395,11 @@
     <section id="contact" class="py-24 relative w-full overflow-hidden">
         <div class="max-w-4xl mx-auto px-6 relative z-10 text-center w-full">
             <div data-aos="zoom-in">
-                <h2 class="text-3xl md:text-5xl font-sans font-bold mb-6">Siap Memulai Proyek <span class="text-accent">Besar?</span></h2>
-                <p class="text-textGray text-base md:text-lg mb-10 max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">Siap Memulai Proyek <span class="text-accent">Besar?</span></h2>
+                <p class="text-textGray text-base md:text-lg mb-10 max-w-2xl mx-auto font-sans">
                     Terbuka untuk kolaborasi, pengembangan produk, dan inovasi teknologi.
                 </p>
-                <a href="mailto:jaky@example.com" class="inline-block bg-accent text-premium font-bold px-8 md:px-10 py-3 md:py-4 rounded hover:bg-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-accent/20 text-sm md:text-base border border-accent">
+                <a href="mailto:jaky@example.com" class="inline-block bg-accent text-premium font-bold px-8 md:px-10 py-3 md:py-4 rounded hover:bg-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-accent/20 text-sm md:text-base border border-accent font-mono">
                     <i class="fas fa-envelope mr-2"></i> Kirim Email ke Jaky
                 </a>
             </div>
@@ -408,10 +410,10 @@
         <div class="max-w-7xl mx-auto px-6 w-full">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
-                    <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors block mb-6 font-sans">
-                        JAKY<span class="text-accent">SOFT</span>.
+                    <a href="#" class="text-2xl font-bold tracking-tighter hover:text-accent transition-colors block mb-6 font-display">
+                        Jaky<span class="text-accent">.dev</span>
                     </a>
-                    <p class="text-textGray leading-relaxed mb-6">
+                    <p class="text-textGray leading-relaxed mb-6 font-sans">
                         Solusi digital berkelas dunia. Fokus pada kinerja, skalabilitas, dan desain.
                     </p>
                     <div class="flex gap-4">
@@ -428,8 +430,8 @@
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold mb-6 text-lg">Tautan</h4>
-                    <ul class="space-y-4 text-textGray">
+                    <h4 class="text-white font-bold mb-6 text-lg font-display">Tautan</h4>
+                    <ul class="space-y-4 text-textGray font-mono">
                         <li><a href="#home" class="footer-link hover:text-accent">> Beranda</a></li>
                         <li><a href="#about" class="footer-link hover:text-accent">> Tentang</a></li>
                         <li><a href="#skills" class="footer-link hover:text-accent">> Keahlian</a></li>
@@ -439,8 +441,8 @@
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold mb-6 text-lg">Kontak</h4>
-                    <ul class="space-y-4 text-textGray">
+                    <h4 class="text-white font-bold mb-6 text-lg font-display">Kontak</h4>
+                    <ul class="space-y-4 text-textGray font-sans">
                         <li class="flex items-start gap-3">
                             <i class="fas fa-map-marker-alt text-accent mt-1"></i>
                             <span>Jakarta, Indonesia</span>
@@ -457,18 +459,18 @@
                 </div>
 
                 <div>
-                    <h4 class="text-white font-bold mb-6 text-lg">Buletin</h4>
-                    <p class="text-textGray mb-4">Dapatkan pembaruan teknologi.</p>
+                    <h4 class="text-white font-bold mb-6 text-lg font-display">Buletin</h4>
+                    <p class="text-textGray mb-4 font-sans">Dapatkan pembaruan teknologi.</p>
                     <form class="flex flex-col gap-3">
                         <input type="email" placeholder="Email..." class="w-full bg-premium border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-accent transition-colors placeholder-gray-600 font-mono">
-                        <button type="button" class="bg-accent text-premium font-bold py-3 rounded hover:bg-white transition-colors">
+                        <button type="button" class="bg-accent text-premium font-bold py-3 rounded hover:bg-white transition-colors font-mono">
                             Subscribe
                         </button>
                     </form>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs md:text-sm">
                 <p class="text-textGray text-center md:text-left">
                     &copy; 2024 Jakysoft. All Systems Operational.
                 </p>
@@ -489,7 +491,7 @@
         AOS.init({
             once: false,
             mirror: true,
-            offset: 100, 
+            offset: 80, 
             duration: 800,
             easing: 'ease-out-cubic',
         });
@@ -526,7 +528,6 @@
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 navbar.classList.add('shadow-2xl');
-                navbar.classList.replace('bg-opacity-85', 'bg-opacity-95');
             } else {
                 navbar.classList.remove('shadow-2xl');
             }
